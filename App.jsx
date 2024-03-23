@@ -1,22 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, TouchableHighlight, Alert } from 'react-native';
-import Constants from 'expo-constants';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { Table, Row, Rows } from 'react-native-table-component';
 
-export default function App() {
+const ExampleOne = () => {
+  const [tableHead] = useState(['Head', 'Head2', 'Head3', 'Head4']);
+  const [tableData] = useState([
+    ['1', '2', '3', '4'],
+    ['a', 'b', 'c', 'd'],
+    ['1', '2', '3', '456\n789'],
+    ['a', 'b', 'c', 'd'],
+  ]);
+
+  // Simulando Tailwind CSS con estilos inline
+  const tailwind = {
+    container: {
+      flex: 1,
+      padding: 16,
+      paddingTop: 30,
+      backgroundColor: '#fff',
+    },
+    head: {
+      height: 40,
+      backgroundColor: '#f1f8ff',
+    },
+    text: {
+      margin: 6,
+    },
+  };
+
   return (
-    <View className="flex-1 justify-between bg-blue-700">
-      <Text className="text-white text-2xl mt-2 self-center" style={{marginTop:Constants.statusBarHeight}}>Mi primera APP :D!</Text>
-      <View className="flex-1 justify-center items-center ">
-        <TouchableHighlight
-          activeOpacity={1}
-          className="bg-red-500 py-2 px-4 rounded-lg items-center"
-          onPress={() => {
-            Alert.alert("Haz ganado :D!");
-          }}>
-          <Text className="text-white text-lg">Presioname</Text>
-        </TouchableHighlight>
-      </View>
-      <StatusBar style="auto" />
+    <View style={tailwind.container}>
+      <Table
+        borderStyle={{ borderWidth: 2 }}
+        className="border border-red-500 text-3xl"
+      >
+        <Row data={tableHead} style={tailwind.head} textStyle={tailwind.text} />
+        <Rows data={tableData} textStyle={tailwind.text} />
+      </Table>
     </View>
   );
-}
+};
+
+export default ExampleOne;
